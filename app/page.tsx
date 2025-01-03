@@ -45,13 +45,13 @@ const HomePage: NextPage = () => {
             aria-label="Toggle Menu"
           >
             <div
-              className={`absolute w-8 h-0.5 bg-white transition-transform duration-500 ease-in-out ${isMenuOpen ? 'rotate-45 translate-y-2' : '-translate-y-2'}`}
+              className={`absolute w-8 h-0.5 bg-white transition-transform duration-500 ease-in-out ${isMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-2'}`}
             ></div>
             <div
-              className={`absolute w-8 h-0.5 bg-white transition-opacity duration-500 ease-in-out ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}
+              className={`absolute w-8 h-0.5 bg-white transition-transform duration-500 ease-in-out ${isMenuOpen ? '-rotate-45 -translate-y-0' : 'translate-y-2'}`}
             ></div>
             <div
-              className={`absolute w-6 h-0.5 bg-white transition-transform duration-500 ease-in-out ${isMenuOpen ? '-rotate-45 -translate-y-2' : 'translate-y-2'}`}
+              className={`absolute w-6 h-0.5 bg-white transition-opacity duration-490 ease-in-out ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}
             ></div>
           </button>
           <div className="flex items-center space-x-4">
@@ -62,9 +62,9 @@ const HomePage: NextPage = () => {
           className={`fixed top-0 left-0 h-full w-64 bg-white shadow-md transform transition-transform duration-500 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
         >
           <ul className="flex flex-col items-center space-y-4 py-4">
-            <li><a href="#" className="text-gray-600 hover:text-black">Home</a></li>
-            <li><a href="#" className="text-gray-600 hover:text-black">Shop</a></li>
-            <li><a href="#" className="text-gray-600 hover:text-black">Contact</a></li>
+            <li><a href="#" className="text-gray-600 hover:text-black border border-black rounded px-4 py-1">Home</a></li>
+            <li><a href="#" className="text-gray-600 hover:text-black border border-black rounded px-4 py-1">Shop</a></li>
+            <li><a href="#" className="text-gray-600 hover:text-black border border-black rounded px-4 py-1">Contact</a></li>
           </ul>
         </nav>
       </header>
