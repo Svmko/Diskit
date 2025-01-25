@@ -48,54 +48,65 @@ export default function Home() {
             Read our docs
           </a>
         </div>
+        <nav
+          className={`fixed top-0 left-0 h-full w-64 bg-white shadow-md transform transition-transform duration-500 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        >
+          <ul className="flex flex-col items-center space-y-4 py-4">
+            <li><a href="#" className="text-gray-600 hover:text-black border border-black rounded px-4 py-1">Home</a></li>
+            <li><a href="#" className="text-gray-600 hover:text-black border border-black rounded px-4 py-1">Shop</a></li>
+            <li><a href="/locator" className="text-gray-600 hover:text-black border border-black rounded px-4 py-1">Find Store</a></li>
+            <li><a href="#" className="text-gray-600 hover:text-black border border-black rounded px-4 py-1">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
+        {/* Hero Section */}
+        <section className="w-full max-w-4xl py-16 flex">
+          <div className="w-3/5 pr-8 text-left">
+            <h1 className="text-6xl font-bold">Lost a Disk?</h1>
+            <p className="mt-2 text-lg text-gray-600">
+              Use our finder system to see if your disk has been found, then claim it!
+            </p>
+            <button className="mt-8 px-10 py-2 text-black bg-white border border-black rounded transition-colors duration-300 hover:bg-black hover:text-white hover:border-white"
+            onClick={() => window.location.href = '/locator'}>
+              Find
+            </button>
+          </div>
+          <div className="w-2/5"></div>
+        </section>
+
+        {/* Product Highlights */}
+        <section className="grid w-full max-w-4xl grid-cols-1 gap-8 py-16 md:grid-cols-3">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </>
   );
-}
+};
+
+// Sample product data
+const products: Product[] = [
+  {
+    id: 1,
+    name: 'Minimalist Chair',
+    price: 199.99,
+    image: '/images/chair.jpg',
+  },
+  {
+    id: 2,
+    name: 'Modern Lamp',
+    price: 89.99,
+    image: '/images/lamp.jpg',
+  },
+  {
+    id: 3,
+    name: 'Sleek Desk',
+    price: 299.99,
+    image: '/images/desk.jpg',
+  },
+];
+
+export default HomePage;
