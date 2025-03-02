@@ -1,8 +1,10 @@
+"use client";
+
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 // Dynamically import the map component to avoid SSR issues
-const StoreLocator = dynamic(() => import('../../components/CourseLocator'), {
+const CourseLocator = dynamic(() => import('../../components/CourseLocator'), {
   ssr: false,
   loading: () => <div>Loading map...</div>
 })
@@ -22,11 +24,60 @@ export async function geocodeZipCode(zipCode: string): Promise<{lat: number, lng
 }
 
 const LocatorPage = () => {
+  const [userLocation, setUserLocation] = useState<{ lat: number, lng: number } | null>(null);
+
+  useEffect(() => {
+    const checkPermission = async () => {
+      if (navigator.permissions) {
+        const result = await navigator.permissions.query({ name: 'geolocation' });
+        if (result.state === 'granted') {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              setUserLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              });
+            },
+            (error) => {
+              console.error("Error getting user location:", error);
+            }
+          );
+        } else if (result.state === 'prompt') {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              setUserLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              });
+            },
+            (error) => {
+              console.error("Error getting user location:", error);
+            }
+          );
+        }
+      } else {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setUserLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            });
+          },
+          (error) => {
+            console.error("Error getting user location:", error);
+          }
+        );
+      }
+    };
+
+    checkPermission();
+  }, []);
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Store Locator</h1>
       <Suspense fallback={<div>Loading...</div>}>
-        <StoreLocator />
+        <CourseLocator userLocation={userLocation} />
       </Suspense>
     </div>
   );

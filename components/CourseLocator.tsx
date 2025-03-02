@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import SearchForm from './SearchForm'
 import CourseList from './CourseList'
@@ -18,18 +18,28 @@ interface Course {
   address: string;
 }
 
-const CourseLocator = () => {
-  const [courses, setcourses] = useState<Course[]>([])
+interface CourseLocatorProps {
+  userLocation: { lat: number, lng: number } | null;
+}
+
+const CourseLocator = ({ userLocation }: CourseLocatorProps) => {
+  const [courses, setCourses] = useState<Course[]>([])
   const [center, setCenter] = useState(defaultCenter)
-  
+
+  useEffect(() => {
+    if (userLocation) {
+      setCenter(userLocation);
+    }
+  }, [userLocation]);
+
   const handleSearch = async (zipCode: string, radius: number) => {
     // TODO: Implement API call to get courses near zipcode
     // This would typically fetch from your backend
     const mockCourses = [
-      { id: 1, name: "course 1", lat: 40.7128, lng: -74.0060, address: "123 Main St" },
-      { id: 2, name: "course 2", lat: 40.7228, lng: -74.0160, address: "456 Broadway" }
+      { id: 1, name: "Course 1", lat: 40.7128, lng: -74.0060, address: "123 Main St" },
+      { id: 2, name: "Course 2", lat: 40.7228, lng: -74.0160, address: "456 Broadway" }
     ]
-    setcourses(mockCourses)
+    setCourses(mockCourses)
   }
 
   return (
