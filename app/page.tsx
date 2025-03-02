@@ -77,7 +77,6 @@ const HomePage: NextPage = () => {
             <p className="mt-2 text-lg text-gray-600">
               Use our finder system to see if your disk has been found, then claim it!
             </p>
-            <button className="mt-8 px-10 py-2 text-black bg-white border border-black rounded transition-colors duration-300 hover:bg-black hover:text-white hover:border-white">
               Find
             </button>
           </div>
